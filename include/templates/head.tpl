@@ -25,4 +25,12 @@
 </head>
 
 <body>
+	<div id="logo">Abichecker</div>
+	<div id="logo_sub">für dein Abitur 2012 in Rheinland-Pfalz</div>
 	
+	<div id="about">
+		<div class="close">X</div>
+		<div class="head">Was bringt mir der Abichecker?</div>
+		Der Abichecker rechnet dir deine Abiturnote nach den MSS-Richtlinien für 2012 aus. Dazu fütterst du ihn einfach mit deinen Noten und am Ende spuckt er dir deine Durchschnittsnote aus.
+		<br />Der Abichecker zeigt dir ebenfalls, wo dir noch Punkte zum bestandenen Abi fehlen.
+	</div>
