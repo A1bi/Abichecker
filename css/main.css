@@ -1,0 +1,23 @@
+body {
+	margin: 0 0 15px 0;
+	font-family: "Arial", "DejaVu Sans";
+	background: #ffffff;
+	font-size: 15px;
+	color: #000000;
+	margin: auto;
+	position: relative;
+	width: 1000px;
+}
+img {
+	border: none;
+}
+a {
+	text-decoration: underline;
+	color: #000000;
+}
+a:hover {
+	text-decoration: none;
+}
+table {
+	width: 100%;
+}

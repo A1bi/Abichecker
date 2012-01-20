@@ -10,8 +10,13 @@ $_config = array(
 		"pass"	=>	""
 	),
 
+	// password for admin panel
 	"pass" => "",
 	
+	// site id for Piwik
+	"as_site" => 0,
+	
+	// is this a development copy?
 	"dev" => false
 
 );
