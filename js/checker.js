@@ -8,20 +8,29 @@ var checker = new function () {
 	}
 	
 	var updateSubjectSelects = function (selects, subs) {
+		// make a temp working copy of all subjects
+		var subsAvail = subs;
+		
 		// go through all selects
-		selects.each(function (index) {
-			var _this = $(this);
+		selects.each(function (index, select) {
 			
-			$.each(subs, function (id, subject) {
-				// check it this subject hasn't been selected before
-				var taken = false;
-				for (var i = 0; i < index; i++) {
-					if (selects.eq(i).find("option").val() == subject.name) {
-						taken = true;
-					}
+			// first save the current value to restore it later and then clear this select
+			var oldValue = $(select).val();
+			$(select).empty();
+			
+			// remove subjects already chosen
+			for (var i = 0; i < index; i++) {
+				subsAvail[selects.eq(i).val()] = null;
+				delete subsAvail[selects.eq(i).val()];
+			}
+			
+			$.each(subsAvail, function (id, subject) {
+				var option = $("<option>").html(subject.name).val(id);
+				if (oldValue == id) {
+					option.attr("selected", "selected");
 				}
-
-				if (!taken) _this.append($("<option>").html(subject.name));
+				
+				$(select).append(option);
 			});
 			
 		});
@@ -50,6 +59,9 @@ var checker = new function () {
 			subjects = data.subjects;
 			updateSubjects();
 		});
+		
+		// register events
+		$("#lks select").change(updateSubjects);
 		
 	});
 
