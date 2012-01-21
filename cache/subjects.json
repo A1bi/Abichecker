@@ -1,0 +1,107 @@
+{
+	"subjects":
+	{
+		"d":
+		{
+			"name": "Deutsch",
+			"lk": true,
+			"forced": true
+		},
+		"e":
+		{
+			"name": "Englisch",
+			"lk": true,
+			"forced": false
+		},
+		"l":
+		{
+			"name": "Latein",
+			"lk": true,
+			"forced": false
+		},
+		"m":
+		{
+			"name": "Mathe",
+			"lk": true,
+			"forced": true
+		},
+		"ch":
+		{
+			"name": "Chemie",
+			"lk": true,
+			"forced": false
+		},
+		"ph":
+		{
+			"name": "Physik",
+			"lk": true,
+			"forced": false
+		},
+		"bi":
+		{
+			"name": "Biologie",
+			"lk": true,
+			"forced": false
+		},
+		"inf":
+		{
+			"name": "Informatik",
+			"lk": false,
+			"forced": false
+		},
+		"g":
+		{
+			"name": "Geschichte",
+			"lk": true,
+			"forced": false
+		},
+		"sk":
+		{
+			"name": "Sozialkunde",
+			"lk": true,
+			"forced": false
+		},
+		"ek":
+		{
+			"name": "Erdkunde",
+			"lk": true,
+			"forced": false
+		},
+		"sp":
+		{
+			"name": "Sport",
+			"lk": true,
+			"forced": true
+		},
+		"r":
+		{
+			"name": "Religion",
+			"lk": true,
+			"forced": false
+		},
+		"et":
+		{
+			"name": "Ethik",
+			"lk": false,
+			"forced": false
+		},
+		"mu":
+		{
+			"name": "Musik",
+			"lk": true,
+			"forced": false
+		},
+		"bk":
+		{
+			"name": "Bildende Kunst",
+			"lk": true,
+			"forced": false
+		},
+		"phi":
+		{
+			"name": "Philosophie",
+			"lk": false,
+			"forced": false
+		}
+	}
+}

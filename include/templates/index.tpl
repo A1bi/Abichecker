@@ -1,4 +1,4 @@
-{include file="head.tpl"}
+{include file="head.tpl" jsfile="checker"}
 <div class="step subjects" id="lks">
 	<div class="head">Leistungskurse <span class="edit">- ändern</span></div>
 	<div class="content">
@@ -12,7 +12,7 @@
 			{section name="lks" loop=3}
 			<tr>
 				<td class="nr">{$smarty.section.lks.iteration}</td>
-				<td class="subject"><select name="lk"><option>Deutsch</option></td>
+				<td class="subject"><select name="lk"></select></td>
 				<td class="lower"><input type="radio" name="lower" value="{$smarty.section.lks.iteration}" /></td>
 			</tr>
 			{/section}
@@ -35,7 +35,7 @@
 			{section name="gks" loop=3}
 			<tr>
 				<td class="nr">{$smarty.section.gks.iteration}</td>
-				<td class="subject"><select name="lk"><option>Deutsch</option></td>
+				<td class="subject"><select name="lk"><option>Deutsch</option></select></td>
 				<td class="lower"><input type="radio" name="lower" value="{$smarty.section.gks.iteration}" /></td>
 			</tr>
 			{/section}

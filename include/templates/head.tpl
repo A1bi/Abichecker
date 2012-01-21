@@ -5,6 +5,7 @@
 	<meta charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="/css/main.css{fileVersion file="/css/main.css"}" />
 	<script src="http://system.albisigns.de/js/lib/jquery.js"></script>
+	<script src="/js/main.js{fileVersion file="/js/main.js"}"></script>
 {if $css != ""}
 	<style type="text/css">
 {include file=$css}
