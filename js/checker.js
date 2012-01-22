@@ -36,6 +36,24 @@ var checker = new function () {
 		});
 	}
 	
+	
+	// -- LKs
+	
+	var prepareLKs = function () {
+		// create the two missing selects for LKs
+		// first get the empty one as an example to clone
+		var row = $("#lks tr").eq(1);
+		for (var i = 2; i <= 3; i++) {
+			var newRow = row.clone();
+			$("td", newRow).first().html(i);
+			row.after(newRow);
+			row = newRow;
+		}
+		
+		// insert LKs
+		updateLKs();
+	}
+	
 	var updateLKs = function () {
 		// gather all LKs
 		var lks = {};
@@ -49,10 +67,14 @@ var checker = new function () {
 	}
 	
 	var finishLKs = function () {
-		insertForcedGKs();
+		prepareGKs();
 	}
 	
-	var insertForcedGKs = function () {
+	
+	// -- GKs
+	
+	var prepareGKs = function () {
+		// insert forced GKs
 		// first gather LKs chosen before
 		var chosenLKs = [];
 		$("#lks select").each(function (index, select) {
@@ -69,6 +91,14 @@ var checker = new function () {
 		});
 	}
 	
+	var updateGKs = function () {
+		
+	}
+	
+	var finishGKs = function () {
+		
+	}
+	
 	var update = new function () {
 		updateSteps();
 		//updateSubjects();
@@ -78,7 +108,7 @@ var checker = new function () {
 		// load subjects from server
 		$.get("/cache/subjects.json", function(data) {
 			subjects = data.subjects;
-			updateLKs();
+			prepareLKs();
 		});
 		
 		// register events

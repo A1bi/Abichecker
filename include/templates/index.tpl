@@ -9,13 +9,11 @@
 				<td class="subject">Leistungskurs</td>
 				<td class="lower">abgestuft</td>
 			</tr>
-			{section name="lks" loop=3}
 			<tr>
-				<td class="nr">{$smarty.section.lks.iteration}</td>
+				<td class="nr">1</td>
 				<td class="subject"><select name="lk"></select></td>
-				<td class="lower"><input type="radio" name="lower" value="{$smarty.section.lks.iteration}" /></td>
+				<td class="lower"><input type="radio" name="lower" value="" /></td>
 			</tr>
-			{/section}
 		</table>
 		<div class="next">
 			<input type="submit" value="ok, weiter" />
@@ -32,13 +30,11 @@
 				<td class="subject">Grundkurs</td>
 				<td class="lower">mündliche Prüfung</td>
 			</tr>
-			{section name="gks" loop=3}
 			<tr>
-				<td class="nr">{$smarty.section.gks.iteration}</td>
-				<td class="subject"><select name="lk"><option>Deutsch</option></select></td>
-				<td class="lower"><input type="radio" name="lower" value="{$smarty.section.gks.iteration}" /></td>
+				<td class="nr">1</td>
+				<td class="subject"><select name="lk"></select></td>
+				<td class="lower"><input type="radio" name="lower" value="" /></td>
 			</tr>
-			{/section}
 		</table>
 		<div class="next">
 			<input type="submit" value="ok, weiter" />
