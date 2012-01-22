@@ -12,7 +12,7 @@
 			<tr>
 				<td class="nr">1</td>
 				<td class="subject"><select name="lk"></select></td>
-				<td class="lower"><input type="radio" name="lower" value="" /></td>
+				<td class="lower"><input type="radio" name="lower" value="" title="Diesen LK abstufen" /></td>
 			</tr>
 		</table>
 		<div class="next">
@@ -33,7 +33,7 @@
 			<tr>
 				<td class="nr">1</td>
 				<td class="subject"><select name="lk"></select></td>
-				<td class="lower"><input type="radio" name="lower" value="" /></td>
+				<td class="lower"><input type="radio" name="lower" value="" title="Diesen Grundkurs als mündliches Prüfungsfach auswählen" /></td>
 			</tr>
 		</table>
 		<div class="next">
@@ -56,9 +56,9 @@
 			</tr>
 			<tr>
 				<td class="subject">Geschichte</td>
-				<td class="semester"><select name="112"><option>15</option></select></td>
-				<td class="semester"><select name="112"><option>15</option></select></td>
-				<td class="semester"><select name="112"><option>15</option></select></td>
+				<td class="semester"><select name="112" title="Punkte in der 11/2"><option>15</option></select></td>
+				<td class="semester"><select name="112" title="Punkte in der 12/1"><option>15</option></select></td>
+				<td class="semester"><select name="112" title="Punkte in der 12/2"><option>15</option></select></td>
 				<td class="points">45</td>
 				<td class="points">90</td>
 			</tr>
@@ -85,10 +85,10 @@
 			</tr>
 			<tr>
 				<td class="subject">Deutsch</td>
-				<td class="semester"><select name="112"><option>15</option></select> <input type="checkbox" checked="checked" /></td>
-				<td class="semester"><select name="112"><option>15</option></select> <input type="checkbox" checked="checked" /></td>
-				<td class="semester"><select name="112"><option>15</option></select> <input type="checkbox" checked="checked" /></td>
-				<td class="semester"><select name="112"><option>15</option></select> <input type="checkbox" checked="checked" /></td>
+				<td class="semester"><select name="112" title="Punkte in der 11/2"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
+				<td class="semester"><select name="112" title="Punkte in der 12/1"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
+				<td class="semester"><select name="112" title="Punkte in der 12/2"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
+				<td class="semester"><select name="112" title="Punkte in der 13"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
 				<td class="points">4</td>
 				<td class="points">105</td>
 			</tr>
@@ -115,8 +115,8 @@
 			</tr>
 			<tr>
 				<td class="subject">Geschichte</td>
-				<td class="semester"><select name="112"><option>15</option></select></td>
-				<td class="semester"><select name="112"><option>15</option></select></td>
+				<td class="semester"><select name="112" title="Punkte in der 13"><option>15</option></select></td>
+				<td class="semester"><select name="112" title="Punkte in der schriftlichen Prüfung"><option>15</option></select></td>
 				<td class="semester">-</td>
 				<td class="points">60</td>
 				<td class="points">75</td>
