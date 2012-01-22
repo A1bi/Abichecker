@@ -36,7 +36,7 @@ var checker = new function () {
 		});
 	}
 	
-	var updateSubjects = function () {
+	var updateLKs = function () {
 		// gather all LKs
 		var lks = {};
 		$.each(subjects, function (id, subject) {
@@ -48,6 +48,27 @@ var checker = new function () {
 		updateSubjectSelects($("#lks select"), lks);
 	}
 	
+	var finishLKs = function () {
+		insertForcedGKs();
+	}
+	
+	var insertForcedGKs = function () {
+		// first gather LKs chosen before
+		var chosenLKs = [];
+		$("#lks select").each(function (index, select) {
+			chosenLKs[index] = $(select).val();
+		});
+		
+		var firstRow = $("#gks table tr").eq(1);
+		$.each(subjects, function (id, subject) {
+			if ($.inArray(id, chosenLKs) == -1 && subject.forced) {
+				var row = firstRow.clone();
+				$("td", row).eq(1).html(subject.name);
+				firstRow.before(row);
+			}
+		});
+	}
+	
 	var update = new function () {
 		updateSteps();
 		//updateSubjects();
@@ -57,11 +78,12 @@ var checker = new function () {
 		// load subjects from server
 		$.get("/cache/subjects.json", function(data) {
 			subjects = data.subjects;
-			updateSubjects();
+			updateLKs();
 		});
 		
 		// register events
-		$("#lks select").change(updateSubjects);
+		$("#lks select").change(updateLKs);
+		$("#lks :submit").click(finishLKs);
 		
 	});
 
