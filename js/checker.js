@@ -1,7 +1,7 @@
 var checker = new function () {
 	
 	var _this = this;
-	var subjects;
+	var subjects = {};
 	
 	var updateSteps = function () {
 		
@@ -9,7 +9,7 @@ var checker = new function () {
 	
 	var updateSubjectSelects = function (selects, subs) {
 		// make a temp working copy of all subjects
-		var subsAvail = subs;
+		var subsAvail = $.extend(true, {}, subs);
 		
 		// go through all selects
 		selects.each(function (index, select) {
@@ -50,20 +50,21 @@ var checker = new function () {
 			row = newRow;
 		}
 		
+		// gather all LKs
+		subjects.lks = {};
+		$.each(subjects.all, function (id, subject) {
+			if (subject.lk) {
+				subjects.lks[id] = subject;
+			}
+		});
+		
 		// insert LKs
 		updateLKs();
 	}
 	
 	var updateLKs = function () {
-		// gather all LKs
-		var lks = {};
-		$.each(subjects, function (id, subject) {
-			if (subject.lk) {
-				lks[id] = subject;
-			}
-		});
 		// insert LKs into selects
-		updateSubjectSelects($("#lks select"), lks);
+		updateSubjectSelects($("#lks select"), subjects.lks);
 	}
 	
 	var finishLKs = function () {
@@ -83,24 +84,34 @@ var checker = new function () {
 		
 		var firstRow = $("#gks table tr").eq(1);
 		var i = 1;
-		$.each(subjects, function (id, subject) {
-			if ($.inArray(id, chosenLKs) == -1 && subject.forced) {
-				var row = firstRow.clone();
-				var cells = $("td", row);
-				// row number
-				cells.eq(0).html(i);
-				// subject name
-				cells.eq(1).html(subject.name);
-				firstRow.before(row);
-				i++;
+		subjects.gks = {};
+		$.each(subjects.all, function (id, subject) {
+			if ($.inArray(id, chosenLKs) == -1) {
+				// forced GK -> add to table
+				if (subject.forced) {
+					var row = firstRow.clone();
+					var cells = $("td", row);
+					// row number
+					cells.eq(0).html(i);
+					// subject name
+					cells.eq(1).html(subject.name);
+					firstRow.before(row);
+					i++;
+				// not forced -> add to available GKs
+				} else {
+					subjects.gks[id] = subject;
+				}
 			}
 		});
 		// finally correct the row number for the last row
 		$("td", firstRow).first().html(i);
+		
+		updateGKs();
 	}
 	
 	var updateGKs = function () {
-		
+		// insert LKs into selects
+		updateSubjectSelects($("#gks select"), subjects.gks);
 	}
 	
 	var finishGKs = function () {
@@ -115,7 +126,7 @@ var checker = new function () {
 	$(function () {
 		// load subjects from server
 		$.get("/cache/subjects.json", function(data) {
-			subjects = data.subjects;
+			subjects.all = data.subjects;
 			prepareLKs();
 		});
 		
