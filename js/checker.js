@@ -82,13 +82,21 @@ var checker = new function () {
 		});
 		
 		var firstRow = $("#gks table tr").eq(1);
+		var i = 1;
 		$.each(subjects, function (id, subject) {
 			if ($.inArray(id, chosenLKs) == -1 && subject.forced) {
 				var row = firstRow.clone();
-				$("td", row).eq(1).html(subject.name);
+				var cells = $("td", row);
+				// row number
+				cells.eq(0).html(i);
+				// subject name
+				cells.eq(1).html(subject.name);
 				firstRow.before(row);
+				i++;
 			}
 		});
+		// finally correct the row number for the last row
+		$("td", firstRow).first().html(i);
 	}
 	
 	var updateGKs = function () {
