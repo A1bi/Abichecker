@@ -41,8 +41,17 @@ var checker = new function () {
 		var subs = {};
 		subs.subjects = [];
 		var boxes = $("input", selector);
-		$("select", selector).each(function (index, select) {
-			var val = $(select).val();
+		$(".subject:not(:first)", selector).each(function (index, subject) {
+			var val;
+			var select = $("select", subject);
+			// is there a select ? -> normal subject
+			if (select.length) {
+				val = select.val();
+			// static text -> forced GK
+			} else {
+				// get hidden id
+				val = $("div", subject).html();
+			}
 			subs.subjects.push(val);
 			// checkbox checked ?
 			if (boxes.eq(index).is(":checked")) {
@@ -113,11 +122,9 @@ var checker = new function () {
 					var cells = $("td", row);
 					// row number
 					cells.eq(0).html(i);
-					// subject name
-					cells.eq(1).html(subject.name);
+					// subject name and hidden id
+					cells.eq(1).html(subject.name).append($("<div>").html(id).hide());
 					firstRow.before(row);
-					// also add to array
-					subjects.user.gks.push(id);
 					i++;
 				// not forced -> add to available GKs
 				} else {
