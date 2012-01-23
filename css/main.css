@@ -120,6 +120,11 @@ table td {
 	.subjects .lower {
 		width: 15%;
 	}
+	.subjects .add {
+		text-align: center;
+		cursor: pointer;
+		margin-top: 5px;
+	}
 
 	
 /* --- qualifications --- */

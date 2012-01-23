@@ -2,6 +2,7 @@ var checker = new function () {
 	
 	var _this = this;
 	var subjects = {};
+	subjects.user = {};
 	
 	var updateSteps = function () {
 		
@@ -36,6 +37,22 @@ var checker = new function () {
 		});
 	}
 	
+	var getSelectedSubjects = function(selector) {
+		var subs = {};
+		subs.subjects = [];
+		var boxes = $("input", selector);
+		$("select", selector).each(function (index, select) {
+			var val = $(select).val();
+			subs.subjects.push(val);
+			// checkbox checked ?
+			if (boxes.eq(index).is(":checked")) {
+				subs.checked = val;
+			}
+		});
+		
+		return subs;
+	}
+	
 	
 	// -- LKs
 	
@@ -49,6 +66,9 @@ var checker = new function () {
 			row.after(newRow);
 			row = newRow;
 		}
+		
+		// register events only for the first two rows because it is not needed to check the last subject
+		$("#lks select:not(:last)").change(updateLKs);
 		
 		// gather all LKs
 		subjects.lks = {};
@@ -68,6 +88,11 @@ var checker = new function () {
 	}
 	
 	var finishLKs = function () {
+		// save chosen LKs by user
+		var subs = getSelectedSubjects($("#lks"));
+		subjects.user.lks = subs.subjects;
+		subjects.user.lower = subs.checked;
+		
 		prepareGKs();
 	}
 	
@@ -76,17 +101,12 @@ var checker = new function () {
 	
 	var prepareGKs = function () {
 		// insert forced GKs
-		// first gather LKs chosen before
-		var chosenLKs = [];
-		$("#lks select").each(function (index, select) {
-			chosenLKs[index] = $(select).val();
-		});
-		
 		var firstRow = $("#gks table tr").eq(1);
 		var i = 1;
 		subjects.gks = {};
+		subjects.user.gks = [];
 		$.each(subjects.all, function (id, subject) {
-			if ($.inArray(id, chosenLKs) == -1) {
+			if ($.inArray(id, subjects.user.lks) == -1) {
 				// forced GK -> add to table
 				if (subject.forced) {
 					var row = firstRow.clone();
@@ -96,6 +116,8 @@ var checker = new function () {
 					// subject name
 					cells.eq(1).html(subject.name);
 					firstRow.before(row);
+					// also add to array
+					subjects.user.gks.push(id);
 					i++;
 				// not forced -> add to available GKs
 				} else {
@@ -106,6 +128,9 @@ var checker = new function () {
 		// finally correct the row number for the last row
 		$("td", firstRow).first().html(i);
 		
+		// add event listener
+		$("#gks select").change(updateGKs);
+		
 		updateGKs();
 	}
 	
@@ -114,8 +139,24 @@ var checker = new function () {
 		updateSubjectSelects($("#gks select"), subjects.gks);
 	}
 	
-	var finishGKs = function () {
+	var addGK = function () {
+		// insert new GK row
+		var rows = $("#gks tr");
+		var row = rows.last();
+		var newRow = row.clone();
+		// correct row number and add event listener
+		$("td", newRow).first().html(rows.length).change(updateGKs);
+		row.after(newRow);
 		
+		updateGKs();
+	}
+	
+	var finishGKs = function () {
+		var subs = getSelectedSubjects($("#gks"));
+		$.merge(subjects.user.gks, subs.subjects);
+		subjects.user.oral = subs.checked;
+		
+		console.log(subjects);
 	}
 	
 	var update = new function () {
@@ -131,8 +172,9 @@ var checker = new function () {
 		});
 		
 		// register events
-		$("#lks select").change(updateLKs);
 		$("#lks :submit").click(finishLKs);
+		$("#gks .add").click(addGK);
+		$("#gks :submit").click(finishGKs);
 		
 	});
 

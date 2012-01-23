@@ -33,9 +33,12 @@
 			<tr>
 				<td class="nr">1</td>
 				<td class="subject"><select name="lk"></select></td>
-				<td class="lower"><input type="radio" name="lower" value="" title="Diesen Grundkurs als mündliches Prüfungsfach auswählen" /></td>
+				<td class="lower"><input type="radio" name="oral" value="" title="Diesen Grundkurs als mündliches Prüfungsfach auswählen" /></td>
 			</tr>
 		</table>
+		<div class="add">
+			weiteren Grundkurs hinzufügen
+		</div>
 		<div class="next">
 			<input type="submit" value="ok, weiter" />
 		</div>
