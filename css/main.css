@@ -111,10 +111,10 @@ table td {
 		width: 5%;
 		text-align: center;
 	}
-	.subjects .subject {
+	.subjects .name {
 		width: 80%;
 	}
-	.subjects .subject select {
+	.subjects .name select {
 		width: 100%;
 	}
 	.subjects .lower {
@@ -125,8 +125,14 @@ table td {
 		cursor: pointer;
 		margin-top: 5px;
 	}
-
+.subject .name div {
+	display: none;
+}
+.sample {
+	display: none;
+}
 	
+
 /* --- qualifications --- */
 .quali td {
 	text-align: center;
@@ -139,7 +145,7 @@ table td {
 	}
 
 /* - LK - */
-#quali-lk .subject {
+#quali-lk .name {
 	width: 25%;
 }
 	#quali-lk .semester {
@@ -150,7 +156,7 @@ table td {
 	}
 	
 /* - GK - */
-#quali-gk .subject {
+#quali-gk .name {
 	width: 20%;
 }
 	#quali-gk .semester {
@@ -161,7 +167,7 @@ table td {
 	}
 
 /* - exams - */
-#quali-exam .subject {
+#quali-exam .name {
 	width: 25%;
 }
 	#quali-exam .semester {

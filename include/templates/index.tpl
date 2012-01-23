@@ -6,12 +6,12 @@
 		<table>
 			<tr>
 				<td class="nr"></td>
-				<td class="subject">Leistungskurs</td>
+				<td class="name">Leistungskurs</td>
 				<td class="lower">abgestuft</td>
 			</tr>
-			<tr>
+			<tr class="subject sample">
 				<td class="nr">1</td>
-				<td class="subject"><select name="lk"></select></td>
+				<td class="name"><select name="lk"></select></td>
 				<td class="lower"><input type="radio" name="lower" value="" title="Diesen LK abstufen" /></td>
 			</tr>
 		</table>
@@ -27,12 +27,17 @@
 		<table>
 			<tr>
 				<td class="nr"></td>
-				<td class="subject">Grundkurs</td>
+				<td class="name">Grundkurs</td>
 				<td class="lower">mündliche Prüfung</td>
 			</tr>
-			<tr>
+			<tr class="subject sample">
 				<td class="nr">1</td>
-				<td class="subject"><select name="lk"></select></td>
+				<td class="name"><select name="lk"></select></td>
+				<td class="lower"><input type="radio" name="oral" value="" title="Diesen Grundkurs als mündliches Prüfungsfach auswählen" /></td>
+			</tr>
+			<tr class="subject sample forced">
+				<td class="nr">1</td>
+				<td class="name"></td>
 				<td class="lower"><input type="radio" name="oral" value="" title="Diesen Grundkurs als mündliches Prüfungsfach auswählen" /></td>
 			</tr>
 		</table>
@@ -50,15 +55,15 @@
 		Trage hier bitte deine Halbjahresnoten der einzelnen Kurse ein und wähle anschließend aus, welche Grundkurse du für deine Qualifikation einreichen möchtest. Pflichtkurse werden automatisch eingereicht.
 		<table>
 			<tr>
-				<td class="subject">Leistungskurs</td>
+				<td class="name">Leistungskurs</td>
 				<td class="semester">11/2</td>
 				<td class="semester">12/1</td>
 				<td class="semester">12/2</td>
 				<td class="points">Summe</td>
 				<td class="points">Summe zweifach</td>
 			</tr>
-			<tr>
-				<td class="subject">Geschichte</td>
+			<tr class="subject sample">
+				<td class="name">Geschichte</td>
 				<td class="semester"><select name="112" title="Punkte in der 11/2"><option>15</option></select></td>
 				<td class="semester"><select name="112" title="Punkte in der 12/1"><option>15</option></select></td>
 				<td class="semester"><select name="112" title="Punkte in der 12/2"><option>15</option></select></td>
@@ -78,7 +83,7 @@
 		Trage hier bitte deine Halbjahresnoten der einzelnen Kurse ein und wähle anschließend aus, welche Grundkurse du für deine Qualifikation einreichen möchtest. Pflichtkurse werden automatisch eingereicht.
 		<table>
 			<tr>
-				<td class="subject">Grundkurs</td>
+				<td class="name">Grundkurs</td>
 				<td class="semester">11/2</td>
 				<td class="semester">12/1</td>
 				<td class="semester">12/2</td>
@@ -86,8 +91,8 @@
 				<td class="points">eingereichte Kurse</td>
 				<td class="points">Summe</td>
 			</tr>
-			<tr>
-				<td class="subject">Deutsch</td>
+			<tr class="subject sample">
+				<td class="name">Deutsch</td>
 				<td class="semester"><select name="112" title="Punkte in der 11/2"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
 				<td class="semester"><select name="112" title="Punkte in der 12/1"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
 				<td class="semester"><select name="112" title="Punkte in der 12/2"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
@@ -109,18 +114,26 @@
 		Trage hier deine Noten aus den 13er LKs, den schriftlichen und mündlichen Prüfungen ein.
 		<table>
 			<tr>
-				<td class="subject">Prüfung</td>
+				<td class="name">Prüfung</td>
 				<td class="semester">13</td>
 				<td class="semester">schriftlich</td>
 				<td class="semester">mündlich</td>
 				<td class="points">Prüfung vierfach</td>
 				<td class="points">Summe</td>
 			</tr>
-			<tr>
-				<td class="subject">Geschichte</td>
+			<tr class="subject sample written">
+				<td class="name">Geschichte</td>
 				<td class="semester"><select name="112" title="Punkte in der 13"><option>15</option></select></td>
 				<td class="semester"><select name="112" title="Punkte in der schriftlichen Prüfung"><option>15</option></select></td>
 				<td class="semester">-</td>
+				<td class="points">60</td>
+				<td class="points">75</td>
+			</tr>
+			<tr class="subject sample oral">
+				<td class="name">Geschichte</td>
+				<td class="semester"><select name="112" title="Punkte in der 13"><option>15</option></select></td>
+				<td class="semester">-</td>
+				<td class="semester"><select name="112" title="Punkte in der mündlichen Prüfung"><option>15</option></select></td>
 				<td class="points">60</td>
 				<td class="points">75</td>
 			</tr>

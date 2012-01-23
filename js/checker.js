@@ -8,7 +8,13 @@ var checker = new function () {
 		
 	}
 	
+	var cloneSample = function (sample) {
+		return sample.clone().removeClass("sample");
+	}
+	
 	var updateSubjectSelects = function (selects, subs) {
+		selects = $(".subject:not(.sample) select", selects);
+		
 		// make a temp working copy of all subjects
 		var subsAvail = $.extend(true, {}, subs);
 		
@@ -40,8 +46,7 @@ var checker = new function () {
 	var getSelectedSubjects = function(selector) {
 		var subs = {};
 		subs.subjects = [];
-		var boxes = $("input", selector);
-		$(".subject:not(:first)", selector).each(function (index, subject) {
+		$(".subject:not(.sample) .name", selector).each(function (index, subject) {
 			var val;
 			var select = $("select", subject);
 			// is there a select ? -> normal subject
@@ -54,7 +59,7 @@ var checker = new function () {
 			}
 			subs.subjects.push(val);
 			// checkbox checked ?
-			if (boxes.eq(index).is(":checked")) {
+			if ($(subject).parent().find("input").is(":checked")) {
 				subs.checked = val;
 			}
 		});
@@ -69,11 +74,12 @@ var checker = new function () {
 		// create the two missing selects for LKs
 		// first get the empty one as an example to clone
 		var row = $("#lks tr").eq(1);
-		for (var i = 2; i <= 3; i++) {
-			var newRow = row.clone();
+		var lastRow = row;
+		for (var i = 1; i <= 3; i++) {
+			var newRow = cloneSample(row);
 			$("td", newRow).first().html(i);
-			row.after(newRow);
-			row = newRow;
+			lastRow.after(newRow);
+			lastRow = newRow;
 		}
 		
 		// register events only for the first two rows because it is not needed to check the last subject
@@ -93,7 +99,7 @@ var checker = new function () {
 	
 	var updateLKs = function () {
 		// insert LKs into selects
-		updateSubjectSelects($("#lks select"), subjects.lks);
+		updateSubjectSelects($("#lks"), subjects.lks);
 	}
 	
 	var finishLKs = function () {
@@ -110,7 +116,7 @@ var checker = new function () {
 	
 	var prepareGKs = function () {
 		// insert forced GKs
-		var firstRow = $("#gks table tr").eq(1);
+		var forcedSample = $("#gks .sample.forced");
 		var i = 1;
 		subjects.gks = {};
 		subjects.user.gks = [];
@@ -118,13 +124,13 @@ var checker = new function () {
 			if ($.inArray(id, subjects.user.lks) == -1) {
 				// forced GK -> add to table
 				if (subject.forced) {
-					var row = firstRow.clone();
+					var row = cloneSample(forcedSample);
 					var cells = $("td", row);
 					// row number
 					cells.eq(0).html(i);
 					// subject name and hidden id
-					cells.eq(1).html(subject.name).append($("<div>").html(id).hide());
-					firstRow.before(row);
+					cells.eq(1).html(subject.name).append($("<div>").html(id));
+					forcedSample.before(row);
 					i++;
 				// not forced -> add to available GKs
 				} else {
@@ -132,8 +138,8 @@ var checker = new function () {
 				}
 			}
 		});
-		// finally correct the row number for the last row
-		$("td", firstRow).first().html(i);
+		// add a select
+		addGK();
 		
 		// add event listener
 		$("#gks select").change(updateGKs);
@@ -143,17 +149,16 @@ var checker = new function () {
 	
 	var updateGKs = function () {
 		// insert LKs into selects
-		updateSubjectSelects($("#gks select"), subjects.gks);
+		updateSubjectSelects($("#gks"), subjects.gks);
 	}
 	
 	var addGK = function () {
 		// insert new GK row
-		var rows = $("#gks tr");
-		var row = rows.last();
-		var newRow = row.clone();
+		var rows = $("#gks tr:not(.sample)");
+		var newRow = cloneSample($("#gks .sample:not(.forced)")).change(updateGKs);
 		// correct row number and add event listener
-		$("td", newRow).first().html(rows.length).change(updateGKs);
-		row.after(newRow);
+		$(".nr", newRow).html(rows.length);
+		rows.last().after(newRow);
 		
 		updateGKs();
 	}
@@ -163,7 +168,40 @@ var checker = new function () {
 		$.merge(subjects.user.gks, subs.subjects);
 		subjects.user.oral = subs.checked;
 		
-		console.log(subjects);
+		prepareQuali();
+	}
+	
+	// -- qualifications
+	
+	var addQualiSubjects = function (table, subs, sample) {
+		var sampleRow = $(sample, table);
+		$.each(subs, function (id, subject) {
+			var newRow = cloneSample(sampleRow);
+			$(".name", newRow).html(subjects.all[subject].name).append($("<div>").html(subject));
+			$(".sum", table).last().before(newRow);
+		});
+	}
+	
+	var prepareQuali = function () {
+		// LKs
+		addQualiSubjects($("#quali-lk"), subjects.user.lks, ".sample");
+		
+		// GKs
+		var gk = $("#quali-gk");
+		addQualiSubjects(gk, subjects.user.gks, ".sample");
+		// correct forced semesters and remove 13th semester for oral exam
+		$(".subject:not(.sample)", gk).each(function (index, subject) {
+			var id = $(".name div", subject).html();console.log(id);
+			if (subjects.user.oral == id) {
+				$(".semester", subject).eq(3).html("mündl.");
+			}
+		});
+		
+		// exams
+		var exams = $("#quali-exam");
+		addQualiSubjects(exams, subjects.user.lks, ".sample.written");
+		// oral
+		addQualiSubjects(exams, [subjects.user.oral], ".sample.oral");
 	}
 	
 	var update = new function () {
