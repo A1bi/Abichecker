@@ -67,12 +67,12 @@
 				<td class="semester"><select name="112" title="Punkte in der 11/2"><option>15</option></select></td>
 				<td class="semester"><select name="112" title="Punkte in der 12/1"><option>15</option></select></td>
 				<td class="semester"><select name="112" title="Punkte in der 12/2"><option>15</option></select></td>
-				<td class="points">45</td>
-				<td class="points">90</td>
+				<td class="points"></td>
+				<td class="points"></td>
 			</tr>
 			<tr class="sum">
 				<td class="requires" colspan="5">Summe</td>
-				<td class="points">90</td>
+				<td class="points"></td>
 			</tr>
 		</table>
 	</div>
@@ -97,13 +97,13 @@
 				<td class="semester"><select name="112" title="Punkte in der 12/1"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
 				<td class="semester"><select name="112" title="Punkte in der 12/2"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
 				<td class="semester"><select name="112" title="Punkte in der 13"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
-				<td class="points">4</td>
-				<td class="points">105</td>
+				<td class="points"></td>
+				<td class="points"></td>
 			</tr>
 			<tr class="sum">
 				<td class="requires" colspan="5">Summe</td>
-				<td class="points">4</td>
-				<td class="points">105</td>
+				<td class="points"></td>
+				<td class="points"></td>
 			</tr>
 		</table>
 	</div>
@@ -126,20 +126,20 @@
 				<td class="semester"><select name="112" title="Punkte in der 13"><option>15</option></select></td>
 				<td class="semester"><select name="112" title="Punkte in der schriftlichen Prüfung"><option>15</option></select></td>
 				<td class="semester">-</td>
-				<td class="points">60</td>
-				<td class="points">75</td>
+				<td class="points"></td>
+				<td class="points"></td>
 			</tr>
 			<tr class="subject sample oral">
 				<td class="name">Geschichte</td>
 				<td class="semester"><select name="112" title="Punkte in der 13"><option>15</option></select></td>
 				<td class="semester">-</td>
 				<td class="semester"><select name="112" title="Punkte in der mündlichen Prüfung"><option>15</option></select></td>
-				<td class="points">60</td>
-				<td class="points">75</td>
+				<td class="points"></td>
+				<td class="points"></td>
 			</tr>
 			<tr class="sum">
 				<td class="requires" colspan="5">Summe</td>
-				<td class="points">105</td>
+				<td class="points"></td>
 			</tr>
 		</table>
 	</div>

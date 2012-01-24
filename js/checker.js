@@ -176,10 +176,36 @@ var checker = new function () {
 	var addQualiSubjects = function (table, subs, sample) {
 		var sampleRow = $(sample, table);
 		$.each(subs, function (id, subject) {
-			var newRow = cloneSample(sampleRow);
+			var newRow = cloneSample(sampleRow).click(updateQuali);
 			$(".name", newRow).html(subjects.all[subject].name).append($("<div>").html(subject));
 			$(".sum", table).last().before(newRow);
 		});
+	}
+	
+	var gatherSemesters = function (table, callback) {
+		var semesters = [];
+		var localSum = 0;
+		$(".subject:not(.sample)", table).each(function (index, subject) {
+			var id = $(".name div", subject).html();
+			semesters[id] = [];
+			var sum = 0;
+			$(".semester", subject).each(function (i, semester) {
+				// check if there is a checkbox and a select field
+				var checkbox = $("input", semester);
+				var select = $("select", semester);
+				if (select.length && (!checkbox.length || checkbox.is(":checked"))) {
+					var points = parseInt(select.val());
+					semesters[id].push(points);
+					sum += points;
+				}
+			});
+			
+			localSum += callback(subject, semesters[id], sum);
+		});
+		
+		$(".sum .points", table).last().html(localSum);
+		
+		return localSum;
 	}
 	
 	var prepareQuali = function () {
@@ -191,7 +217,7 @@ var checker = new function () {
 		addQualiSubjects(gk, subjects.user.gks, ".sample");
 		// correct forced semesters and remove 13th semester for oral exam
 		$(".subject:not(.sample)", gk).each(function (index, subject) {
-			var id = $(".name div", subject).html();console.log(id);
+			var id = $(".name div", subject).html();
 			if (subjects.user.oral == id) {
 				$(".semester", subject).eq(3).html("mündl.");
 			}
@@ -202,6 +228,42 @@ var checker = new function () {
 		addQualiSubjects(exams, subjects.user.lks, ".sample.written");
 		// oral
 		addQualiSubjects(exams, [subjects.user.oral], ".sample.oral");
+	}
+	
+	var updateQuali = function () {
+		// gather semesters and update sum
+		var globalSum = 0;
+		globalSum += gatherSemesters($("#quali-lk"), function (subject, semesters, sum) {
+			var points = $(".points", subject);
+			points.eq(0).html(sum);
+			var doubleSum = sum*2;
+			points.eq(1).html(doubleSum);
+			
+			return doubleSum;
+		});
+		
+		var semestersCount = 0;
+		globalSum += gatherSemesters($("#quali-gk"), function (subject, semesters, sum) {
+			var points = $(".points", subject);
+			points.eq(0).html(semesters.length);
+			points.eq(1).html(sum);
+			semestersCount += semesters.length;
+			return sum;
+		});
+		// update number of chosen semesters
+		$("#quali-gk .sum .points").first().html(semestersCount);
+		
+		globalSum += gatherSemesters($("#quali-exam"), function (subject, semesters, sum) {
+			var points = $(".points", subject);
+			points.eq(0).html(semesters[1]*4);
+			var addSum = semesters[0] + semesters[1]*4;
+			points.eq(1).html(addSum);
+			
+			return addSum;
+			
+		});
+		
+		console.log(globalSum);
 	}
 	
 	var update = new function () {
