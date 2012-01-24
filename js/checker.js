@@ -176,6 +176,9 @@ var checker = new function () {
 	var addQualiSubjects = function (table, subs, sample) {
 		var sampleRow = $(sample, table);
 		$.each(subs, function (id, subject) {
+			// only add this LK if it is not lowered
+			if (subject == subjects.user.lower) return true;
+			
 			var newRow = cloneSample(sampleRow).click(updateQuali);
 			$(".name", newRow).html(subjects.all[subject].name).append($("<div>").html(subject));
 			$(".sum", table).last().before(newRow);
