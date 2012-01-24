@@ -64,9 +64,9 @@
 			</tr>
 			<tr class="subject sample">
 				<td class="name">Geschichte</td>
-				<td class="semester"><select name="112" title="Punkte in der 11/2"><option>15</option></select></td>
-				<td class="semester"><select name="112" title="Punkte in der 12/1"><option>15</option></select></td>
-				<td class="semester"><select name="112" title="Punkte in der 12/2"><option>15</option></select></td>
+				<td class="semester"><select name="112" title="Punkte in der 11/2"></select></td>
+				<td class="semester"><select name="112" title="Punkte in der 12/1"></select></td>
+				<td class="semester"><select name="112" title="Punkte in der 12/2"></select></td>
 				<td class="points"></td>
 				<td class="points"></td>
 			</tr>
@@ -93,10 +93,10 @@
 			</tr>
 			<tr class="subject sample">
 				<td class="name">Deutsch</td>
-				<td class="semester"><select name="112" title="Punkte in der 11/2"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
-				<td class="semester"><select name="112" title="Punkte in der 12/1"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
-				<td class="semester"><select name="112" title="Punkte in der 12/2"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
-				<td class="semester"><select name="112" title="Punkte in der 13"><option>15</option></select> <input type="checkbox" checked="checked" title="Kurs einreichen" /></td>
+				<td class="semester"><select name="112" title="Punkte in der 11/2"></select> <input type="checkbox" title="Kurs einreichen" /></td>
+				<td class="semester"><select name="112" title="Punkte in der 12/1"></select> <input type="checkbox" title="Kurs einreichen" /></td>
+				<td class="semester"><select name="112" title="Punkte in der 12/2"></select> <input type="checkbox" title="Kurs einreichen" /></td>
+				<td class="semester"><select name="112" title="Punkte in der 13"></select> <input type="checkbox" title="Kurs einreichen" /></td>
 				<td class="points"></td>
 				<td class="points"></td>
 			</tr>
@@ -123,17 +123,17 @@
 			</tr>
 			<tr class="subject sample written">
 				<td class="name">Geschichte</td>
-				<td class="semester"><select name="112" title="Punkte in der 13"><option>15</option></select></td>
-				<td class="semester"><select name="112" title="Punkte in der schriftlichen Prüfung"><option>15</option></select></td>
+				<td class="semester"><select name="112" title="Punkte in der 13"></select></td>
+				<td class="semester"><select name="112" title="Punkte in der schriftlichen Prüfung"></select></td>
 				<td class="semester">-</td>
 				<td class="points"></td>
 				<td class="points"></td>
 			</tr>
 			<tr class="subject sample oral">
 				<td class="name">Geschichte</td>
-				<td class="semester"><select name="112" title="Punkte in der 13"><option>15</option></select></td>
+				<td class="semester"><select name="112" title="Punkte in der 13"></select></td>
 				<td class="semester">-</td>
-				<td class="semester"><select name="112" title="Punkte in der mündlichen Prüfung"><option>15</option></select></td>
+				<td class="semester"><select name="112" title="Punkte in der mündlichen Prüfung"></select></td>
 				<td class="points"></td>
 				<td class="points"></td>
 			</tr>

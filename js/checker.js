@@ -12,6 +12,20 @@ var checker = new function () {
 		return sample.clone().removeClass("sample");
 	}
 	
+	var removeFromArray = function (array, value) {
+		return $.map(array, function (val, i) {
+			if (val == value) return null;
+			return val;
+		});
+	}
+	
+	var insertPointOptions = function (dom) {
+		var select = $("select", dom);
+		for (var i = 1; i <= 15; i++) {
+			select.append($("<option>").html(i));
+		}
+	}
+	
 	var updateSubjectSelects = function (selects, subs) {
 		selects = $(".subject:not(.sample) select", selects);
 		
@@ -176,10 +190,8 @@ var checker = new function () {
 	var addQualiSubjects = function (table, subs, sample) {
 		var sampleRow = $(sample, table);
 		$.each(subs, function (id, subject) {
-			// only add this LK if it is not lowered
-			if (subject == subjects.user.lower) return true;
-			
 			var newRow = cloneSample(sampleRow).click(updateQuali);
+			insertPointOptions(newRow);
 			$(".name", newRow).html(subjects.all[subject].name).append($("<div>").html(subject));
 			$(".sum", table).last().before(newRow);
 		});
@@ -213,16 +225,22 @@ var checker = new function () {
 	
 	var prepareQuali = function () {
 		// LKs
-		addQualiSubjects($("#quali-lk"), subjects.user.lks, ".sample");
+		// lowered LK needs to be removed for this
+		var lks = removeFromArray(subjects.user.lks, subjects.user.lower);
+		addQualiSubjects($("#quali-lk"), lks, ".sample");
 		
 		// GKs
 		var gk = $("#quali-gk");
-		addQualiSubjects(gk, subjects.user.gks, ".sample");
+		// also add lowered LK
+		addQualiSubjects(gk, $.merge([subjects.user.lower], subjects.user.gks), ".sample");
 		// correct forced semesters and remove 13th semester for oral exam
 		$(".subject:not(.sample)", gk).each(function (index, subject) {
 			var id = $(".name div", subject).html();
 			if (subjects.user.oral == id) {
 				$(".semester", subject).eq(3).html("mündl.");
+			}
+			if (subjects.user.lower == id) {
+				$(".semester", subject).eq(3).html("schriftlich.");
 			}
 		});
 		
