@@ -149,7 +149,7 @@
 	<div class="content">
 		Du hast dein Abi geschafft!<br />
 		Deine Durchschnittsnote ist:
-		<div class="average">2,0</div>
+		<div class="average"></div>
 	</div>
 </div>
 {include file="foot.tpl"}

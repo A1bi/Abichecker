@@ -3,6 +3,7 @@ var checker = new function () {
 	var _this = this;
 	var subjects = {};
 	subjects.user = {};
+	subjects.user.semesters = {};
 	
 	var updateSteps = function () {
 		
@@ -190,7 +191,7 @@ var checker = new function () {
 	var addQualiSubjects = function (table, subs, sample) {
 		var sampleRow = $(sample, table);
 		$.each(subs, function (id, subject) {
-			var newRow = cloneSample(sampleRow).click(updateQuali);
+			var newRow = cloneSample(sampleRow).click(updateQuali).addClass(subject);
 			insertPointOptions(newRow);
 			$(".name", newRow).html(subjects.all[subject].name).append($("<div>").html(subject));
 			$(".sum", table).last().before(newRow);
@@ -211,6 +212,7 @@ var checker = new function () {
 				if (select.length && (!checkbox.length || checkbox.is(":checked"))) {
 					var points = parseInt(select.val());
 					semesters[id].push(points);
+					subjects.user.semesters[id].push(points);
 					sum += points;
 				}
 			});
@@ -220,7 +222,7 @@ var checker = new function () {
 		
 		$(".sum .points", table).last().html(localSum);
 		
-		return localSum;
+		subjects.user.sum += localSum;
 	}
 	
 	var prepareQuali = function () {
@@ -234,15 +236,8 @@ var checker = new function () {
 		// also add lowered LK
 		addQualiSubjects(gk, $.merge([subjects.user.lower], subjects.user.gks), ".sample");
 		// correct forced semesters and remove 13th semester for oral exam
-		$(".subject:not(.sample)", gk).each(function (index, subject) {
-			var id = $(".name div", subject).html();
-			if (subjects.user.oral == id) {
-				$(".semester", subject).eq(3).html("mündl.");
-			}
-			if (subjects.user.lower == id) {
-				$(".semester", subject).eq(3).html("schriftlich.");
-			}
-		});
+		$("." + subjects.user.oral + " .semester", gk).eq(3).html("mündl.");
+		$("." + subjects.user.lower + " .semester", gk).eq(3).html("schriftl.");
 		
 		// exams
 		var exams = $("#quali-exam");
@@ -252,9 +247,10 @@ var checker = new function () {
 	}
 	
 	var updateQuali = function () {
+		subjects.user.sum = 0;
+		
 		// gather semesters and update sum
-		var globalSum = 0;
-		globalSum += gatherSemesters($("#quali-lk"), function (subject, semesters, sum) {
+		gatherSemesters($("#quali-lk"), function (subject, semesters, sum) {
 			var points = $(".points", subject);
 			points.eq(0).html(sum);
 			var doubleSum = sum*2;
@@ -264,17 +260,18 @@ var checker = new function () {
 		});
 		
 		var semestersCount = 0;
-		globalSum += gatherSemesters($("#quali-gk"), function (subject, semesters, sum) {
+		gatherSemesters($("#quali-gk"), function (subject, semesters, sum) {
 			var points = $(".points", subject);
 			points.eq(0).html(semesters.length);
 			points.eq(1).html(sum);
 			semestersCount += semesters.length;
+			
 			return sum;
 		});
 		// update number of chosen semesters
 		$("#quali-gk .sum .points").first().html(semestersCount);
 		
-		globalSum += gatherSemesters($("#quali-exam"), function (subject, semesters, sum) {
+		gatherSemesters($("#quali-exam"), function (subject, semesters, sum) {
 			var points = $(".points", subject);
 			points.eq(0).html(semesters[1]*4);
 			var addSum = semesters[0] + semesters[1]*4;
@@ -284,18 +281,27 @@ var checker = new function () {
 			
 		});
 		
-		console.log(globalSum);
+		updateSummary();
 	}
 	
-	var update = new function () {
-		updateSteps();
-		//updateSubjects();
+	var updateSummary = function () {
+		var summary = $("#summary");
+		var average = 4 - ((subjects.user.sum - 280) / 16 * 0.1);
+		// round and replace point by comma
+		var averageString = (Math.floor(Math.max(average, 1) * 10) / 10).toString().replace(".", ",");
+		// add zero if it is only one digit
+		if (averageString.length < 2) averageString += ",0";
+		
+		$(".average", summary).html(averageString);
 	}
 	
 	$(function () {
 		// load subjects from server
 		$.get("/cache/subjects.json", function(data) {
 			subjects.all = data.subjects;
+			$.each(subjects.all, function (id) {
+				subjects.user.semesters[id] = [];
+			});
 			prepareLKs();
 		});
 		
